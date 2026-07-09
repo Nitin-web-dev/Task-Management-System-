@@ -1,11 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState ,useEffect } from 'react'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+const [tasks, setTasks] = useState([]);
+
+console.log(tasks);
+useEffect(() => {
+  async function fetchtask() {
+    try {
+      const response = await fetch ("http://localhost:5000/");
+      const data = await response.json();
+      setTasks(data);
+    }catch(error){
+      console.log(error);
+    }
+  }
+
+  fetchtask();
+},[]);
 
   return (
     <>
@@ -14,5 +26,6 @@ function App() {
     </>
   )
 }
+
 
 export default App
