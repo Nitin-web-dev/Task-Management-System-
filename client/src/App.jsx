@@ -1,10 +1,11 @@
 import { useState ,useEffect } from 'react'
+import Login from './pages/Login';
 
 
 function App() {
 const [tasks, setTasks] = useState([]);
 
-console.log(tasks);
+// console.log(tasks);
 useEffect(() => {
   async function fetchtask() {
     try {
@@ -16,13 +17,12 @@ useEffect(() => {
     }
   }
 
-  fetchtask();
+  // fetchtask();
 },[]);
 
   return (
     <>
-      <h1>Task management system</h1>
-      <p>comming soon...</p>
+      <Login/>
     </>
   )
 }
