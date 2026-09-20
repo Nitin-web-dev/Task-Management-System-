@@ -30,6 +30,7 @@ const taskSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    // todo: add category for task
 },{timestamps: true});
 
 const taskModel = mongoose.model("task", taskSchema);

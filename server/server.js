@@ -18,10 +18,10 @@ app.use(cookieParser()); // for sending and rececing cookies
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-
+app.get('/', (req,res) => res.send(process.env.PORT));
 //create endpoint for routes
-app.use('/users', userRouter);
-app.use('/tasks', taskRouter)
+app.use('/api/auth', userRouter);
+app.use('/api/tasks', taskRouter)
 
 
 

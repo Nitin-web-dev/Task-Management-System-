@@ -21,6 +21,13 @@ const userSchema = new mongoose.Schema({
     select: false,
     minLength: 3,
   },
+  emailNotification: {
+    type: Boolean
+  },
+
+  agreeTermAndCondition: {
+    type: Boolean
+  },
   role: {
     type: String,
     enum: ["user", "admin"],
