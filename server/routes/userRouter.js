@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const {registerUser} = require('../controllers/authcontroller')
+const {registerUser, loginUser} = require('../controllers/authcontroller')
+const {registerRequestValidation , loginRequestValidation} = require("../middleware/reqValidation");
 
 
 
@@ -13,5 +14,6 @@ router.get('/', function (req,res){
 })
 
 
-router.post('/register', registerUser)
+router.post('/register', registerRequestValidation, registerUser)
+router.post('/login', loginRequestValidation, loginUser)
 module.exports = router;
