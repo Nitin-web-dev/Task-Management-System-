@@ -2,11 +2,19 @@ const mongoose = require("mongoose");
 const taskModel = require("../models/task-model");
 module.exports.createTask = async function (req, res) {
   try {
+
+     
+    
+
     const task = await taskModel.create({
-      title: req.body.title,
-      description: req.body.description,
-      dueDate: req.body.dueDate,
-      assignedTo: req.body.assignedTo,
+      
+      title: req.userTaskData.title,
+      description: req.userTaskData.description,
+      dueDate: req.userTaskData.dueDate,
+      assignedTo: req.userTaskData.assignedTo,
+      category: req.userTaskData.category,
+      taskStatus: req.userTaskData.taskStatus,
+      priority: req.userTaskData.priority
     });
 
     res.status(201).json({

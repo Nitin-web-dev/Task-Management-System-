@@ -13,13 +13,13 @@ const taskSchema = new mongoose.Schema({
     taskStatus : {
         type: String,
         
-        enum : ["pending", "done", "inProcess"],
+        enum : ["Todo", "Completed", "In Progress"],
         default: "pending"
     },
     priority : {
         type: String,
         
-        enum : ["urgent", "highPriority", "normal"],
+        enum : ["Urgent", "High", "Medium", "Low"],
         default: "normal"
     },
     dueDate : {
@@ -30,7 +30,10 @@ const taskSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    // todo: add category for task
+    category: {
+        type: String,
+        required: true
+    }
 },{timestamps: true});
 
 const taskModel = mongoose.model("task", taskSchema);
