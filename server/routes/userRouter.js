@@ -2,7 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken')
 const router = express.Router();
 
-const {registerUser, loginUser} = require('../controllers/authcontroller')
+const {registerUser, loginUser, logoutUser} = require('../controllers/authcontroller')
 const {registerRequestValidation , loginRequestValidation} = require("../middleware/reqValidation");
 
 
@@ -26,4 +26,5 @@ router.get('/me', function (req,res){
 
 router.post('/register', registerRequestValidation, registerUser)
 router.post('/login', loginRequestValidation, loginUser)
+router.post('/logout',  logoutUser)
 module.exports = router;

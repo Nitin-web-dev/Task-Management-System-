@@ -68,9 +68,36 @@ module.exports.loginUser = async function (req, res) {
 
     return res.status(200).cookie("token", token, cookieOptions).json({
       message: "login successfull",
-     
+
       data: userResponse,
     });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "internal server error" });
+  }
+};
+
+module.exports.logoutUser = async function (req, res) {
+  try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res
+        .status(401)
+        .json({ message: "not authorized , please log in" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_KEY);
+    if(!decoded) return res.status(400).json({status: false, message: "not authorized"});
+
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // Match your login cookie settings
+      sameSite: "lax", // Match your login cookie settings
+    });
+
+    return res
+      .status(200)
+      .json({ status: true, message: "Logged out successfully" });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "internal server error" });

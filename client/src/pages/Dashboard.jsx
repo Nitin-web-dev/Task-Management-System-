@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import TaskMenu from "../components/TaskMenu";
 import {
@@ -16,10 +17,12 @@ import {
 } from "lucide-react";
 
 import { useTaskStore } from "../store/taskStore";
+import { logoutUser } from "../api/authApi";
 
 //// todo: learn how to make this page by myself for better understanding of react
 /// after that i can make it by myself without any help
 export default function Dashboard() {
+  const navigate = useNavigate();
   const taskList = useTaskStore((state) => state.tasks);
   const fetchTasks = useTaskStore((state) => state.fetchTasks);
   const addTasks = useTaskStore((state) => state.addTasks);
@@ -39,7 +42,6 @@ export default function Dashboard() {
     reset,
   } = useForm();
 
-
   const onsubmit = async (data) => {
     try {
       await addTasks(data);
@@ -51,6 +53,15 @@ export default function Dashboard() {
     }
   };
 
+  const logout = async () => {
+    try {
+      const result = await logoutUser();
+     
+      navigate('/login');
+    } catch (error) {
+      console.log(error)
+    }
+  }
   //todo: understand this below function deeply
   // Calculate Metrics
   const totalTasks = taskList.length;
@@ -138,14 +149,22 @@ export default function Dashboard() {
               Organize, track, and manage your team's workload.
             </p>
           </div>
+          <div>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-lg shadow-sm font-medium transition-colors cursor-pointer"
+            >
+              <Plus className="w-5 h-5" />
+              Add New Task
+            </button>
 
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-lg shadow-sm font-medium transition-colors cursor-pointer"
-          >
-            <Plus className="w-5 h-5" />
-            Add New Task
-          </button>
+            <button
+              onClick={() => logout()}
+              className="flex items-center justify-center gap-2 bg-red-500 hover:bg-red-700 text-white px-4 py-2.5 rounded-lg shadow-sm font-medium transition-colors cursor-pointer"
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         {/* Metrics Grid */}

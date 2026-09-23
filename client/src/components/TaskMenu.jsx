@@ -13,7 +13,8 @@ export default function TaskMenu({ taskId }) {
   
     try {
       const result = await deleteTaskApi(id);
-      console.log(result);
+   
+      setIsMenuOpen(!isMenuOpen);
     } catch (error) {
       console.log(error);
     }

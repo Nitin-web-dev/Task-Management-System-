@@ -11,11 +11,8 @@ export default function LoginPage() {
   const onsubmit = async (data) => {
     try {
       const response = await loginUser(data);
-      // todo: store token before navigate to another route
-    //   console.log("login", response);
-    //   console.log("token", response.token);
-    //   console.log(data);
-    navigate('/dashboard');
+
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
     }
